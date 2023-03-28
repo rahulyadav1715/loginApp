@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
+        <form class="login-form" [formGroup]="searchForm">
+          <div class="form-group mb-0">
+            <input type="text" class="form-control" placeholder="Search..." formControlName="searchText" />
+          </div>
+        </form>
+        <div class="d-flex justify-content-end align-items-center">
+          <div class="d-flex align-items-center mr-3">
+            <span>Items on the page</span>
+            <select class="form-control ml-2" style="width: 100px;" [(ngModel)]="limit" (change)="limitChange()">
+              <option>10</option>
+              <option>15</option>
+              <option>20</option>
+            </select>
+          </div>
+          <div class="mr-3" *ngIf="totalPages > 0">
+            {{page}} of {{totalPages}}
+          </div>
+          <div class=" mr-3">
+            <button type="button" class="btn btn-light" (click)="pageChange(true)" [disabled]="this.page === 1">
+              < </button>
+                <button type="button" class="btn btn-light" (click)="pageChange(false)"
+                  [disabled]="this.page === totalPages">
+                  >
+                </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let product of this.products" [routerLink]="'/detail'"
+      [queryParams]="{id: product.id}">
+      <div class="d-flex justify-content-start align-items-center" style="padding: 0.75rem 1.25rem;">
+        <img [src]="product.thumbnail" height="50" width="50">
+        <div class="d-flex flex-column ml-5">
+          <h3>{{product.title}}</h3>
+          <span>{{product.description}}</span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

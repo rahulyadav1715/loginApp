@@ -1,0 +1,32 @@
+<div class="container">
+  <h2 class="login-title">Log in</h2>
+
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div>
+      <label for="email">Email </label>
+      <input id="email" type="email" placeholder="Enter email address" name="email" formControlName="email" />
+      <ng-container *ngIf="loginForm.controls['email'].invalid
+        && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+        <span class="text-danger" *ngIf="loginForm.get('email')?.errors?.required">Required</span>
+        <span class="text-danger" *ngIf="loginForm.get('email')?.errors?.email">Invalid email!</span>
+      </ng-container>
+    </div>
+
+    <div>
+      <label for="password">Password </label>
+      <input id="password" type="password" placeholder="Enter password" name="password" formControlName="password" />
+      <ng-container *ngIf="loginForm.controls['password'].invalid
+        && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+        <span class="text-danger" *ngIf="loginForm.get('password')?.errors?.required">Required</span>
+      </ng-container>
+    </div>
+
+    <div class="alert alert-danger p-3" role="alert" *ngIf="loginError">
+      {{loginError}}
+    </div>
+
+    <button class="btn btn--form" type="submit" value="Log in">
+      Log in
+    </button>
+  </form>
+</div>
